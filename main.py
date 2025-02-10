@@ -2,11 +2,10 @@ import math
 import string as s
 
 ALPHABET_RU = \
-    "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя"
-ALPHABET_EN = s.ascii_letters
-ALPHABET = list(ALPHABET_RU + s.ascii_letters + s.digits + s.punctuation +
-                " ❤★")
-print(len(ALPHABET))
+    "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя" + \
+    s.digits
+ALPHABET_EN = s.ascii_letters + s.digits
+ALPHABET = list(ALPHABET_RU + s.ascii_letters + s.punctuation + " ❤★")
 
 
 def key_formula(k1, k2):
@@ -228,7 +227,27 @@ that: 5, 12""")
 
 
 def replacement_choice(typ):
-    pass
+    while True:
+        print("""First, chose alphabet to use.
+[1] English
+[2] Russian
+[0] Exit""")
+
+        try:
+            choice = int(input("Enter your choice: "))
+        except ValueError:
+            print("Number please!")
+            continue
+
+        if choice == 0:
+            break
+        elif choice == 1:
+            pass
+        elif choice == 2:
+            pass
+        else:
+            print("No such option!")
+            continue
 
 
 def afina_cipher(key, message):
