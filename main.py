@@ -1,8 +1,9 @@
 import math
 import string as s
+import random
 
 ALPHABET_RU = \
-    "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя" + \
+"АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя" + \
     s.digits
 ALPHABET_EN = s.ascii_letters + s.digits
 ALPHABET = list(ALPHABET_RU + s.ascii_letters + s.punctuation + " ❤★")
@@ -59,7 +60,7 @@ def afina_recurrent_cipher(key1, key2, message):
     message_encrypted_numerated = []
     for i in range(0, len(key_chain)):
         enc = (key_chain[i][0] * message_numerated[i] + key_chain[i][1]) %\
-              len(ALPHABET)
+            len(ALPHABET)
         message_encrypted_numerated.append(enc)
     message_encrypted = list(map(lambda num: ALPHABET[num],
                                  message_encrypted_numerated))
@@ -90,7 +91,7 @@ def afina_recurrent_decipher(key1, key2, message):
     message_decrypted_numerated = []
     for i in range(0, len(key_chain)):
         dec = (key_chain[i][0] * (message_numerated[i] - key_chain[i][1])) % \
-               len(ALPHABET)
+            len(ALPHABET)
         message_decrypted_numerated.append(dec)
     message_decrypted = list(map(lambda num: ALPHABET[num],
                                  message_decrypted_numerated))
@@ -111,7 +112,7 @@ and more than -1. Enter your key like that: 5, 12""")
         key_list2 = key2.split(",")
 
         if len(key_list1) > 2 or len(key_list1) < 2 or \
-           len(key_list2) > 2 or len(key_list2) < 2:
+            len(key_list2) > 2 or len(key_list2) < 2:
             print("Nuh uh! Not allowed!")
             continue
 
@@ -120,7 +121,7 @@ and more than -1. Enter your key like that: 5, 12""")
             key2 = tuple(map(int, key_list2))
 
             if math.gcd(key1[0], len(ALPHABET)) != 1 or\
-               math.gcd(key1[0], len(ALPHABET)) != 1:
+                math.gcd(key1[0], len(ALPHABET)) != 1:
                 print("First digit of the key doesnt match the gcd")
                 continue
             if key1[0] > len(ALPHABET) or key2[0] > len(ALPHABET):
@@ -128,7 +129,7 @@ and more than -1. Enter your key like that: 5, 12""")
                 print("First digit of the key can't be more than alph")
                 continue
             if key1[1] > len(ALPHABET) - 1 or key1[1] < 0 or\
-               key2[1] > len(ALPHABET) - 1 or key2[1] < 0:
+                key2[1] > len(ALPHABET) - 1 or key2[1] < 0:
                 print("Second digit of the key is incorrect")
                 continue
         except ValueError:
@@ -242,7 +243,26 @@ def replacement_choice(typ):
         if choice == 0:
             break
         elif choice == 1:
-            pass
+            eng_alphabet_default = s.ascii_lowercase + " "
+            print("""Enter your alphabet in one string. Make sure to list all\
+characters and do not repeat characters. If you want to create randomly\
+generated alphabet, type random""")
+
+            while True:
+                user_input = input("Enter your alphabet: ")
+
+                if user_input == "random":
+                    alphabet = list(eng_alphabet_default)
+                    random.shuffle(alphabet)
+                    print("----------------------------------------------------")
+                    print("".join(alphabet))
+                    print("----------------------------------------------------")
+                elif len(eng_alphabet_default) > len(user_input):
+                    print("Alphabet is not full.")
+                    continue
+                elif len(eng_alphabet_default) == len(user_input):
+                    pass
+
         elif choice == 2:
             pass
         else:
@@ -255,7 +275,7 @@ def afina_cipher(key, message):
         return (num * key[0] + key[1]) % len(ALPHABET)
     message_listed = list(message)
     message_numerated = list(map(lambda char: ALPHABET.index(char),
-                             message_listed))
+                                 message_listed))
     message_encrypted_numerated = list(map(afina_cipher_formula,
                                            message_numerated))
     message_encrypted = list(map(lambda num: ALPHABET[num],
@@ -270,7 +290,7 @@ def afina_decipher(key, message):
 
     message_encrypted = list(message)
     message_encrypted_numerated = list(map(lambda char: ALPHABET.index(char),
-                                       message_encrypted))
+                                           message_encrypted))
     message_decrypted_numerated = list(map(afina_decipher_formula,
                                            message_encrypted_numerated))
     message_decrypted = list(map(lambda num: ALPHABET[num],
@@ -295,10 +315,10 @@ def afina(typ="basic"):
             break
         elif choice == 1:
             afina_choice("cipher") if typ == "basic" else \
-                afina_recurrent_choice("cipher")
+            afina_recurrent_choice("cipher")
         elif choice == 2:
             afina_choice("decipher") if typ == "basic" else \
-                afina_recurrent_choice("decipher")
+            afina_recurrent_choice("decipher")
         else:
             print("No such option!")
             continue
