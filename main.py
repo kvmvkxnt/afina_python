@@ -258,6 +258,14 @@ that: 5, 12""")
             break
 
 
+def replacement_cd(message, key, alphabet):
+    cd = ""
+    for i in range(0, len(message)):
+        cd += key[alphabet.index(message[i])]
+
+    return cd
+
+
 def replacement_choice(typ):
     while True:
         print("""First, chose alphabet to use.
@@ -274,7 +282,7 @@ def replacement_choice(typ):
         if choice == 0:
             break
         elif choice == 1:
-            eng_alphabet_default = s.ascii_lowercase + " "
+            eng_alphabet_default = ALPHABET("en")
             print("""Enter your alphabet in one string. Make sure to list all\
 characters and do not repeat characters. If you want to create randomly\
 generated alphabet, type random""")
@@ -288,14 +296,96 @@ generated alphabet, type random""")
                     print("----------------------------------------------------")
                     print("".join(alphabet))
                     print("----------------------------------------------------")
+
+                    if typ == "cipher":
+                        print("""Enter message to cipher without any dots and
+etc. Also write it uppercase. Program is case sensitive yet.""")
+                        message = input("Message: ")
+                        print("--------------------------------------------------------")
+                        print(replacement_cd(message, alphabet, eng_alphabet_default))
+                        print("--------------------------------------------------------")
+                        return
+                    else:
+                        print("""Enter message to decipher without any dots and
+etc. Also write it uppercase. Program is case sensitive yet.""")
+                        message = input("Message: ")
+                        print("--------------------------------------------------------")
+                        print(replacement_cd(message, eng_alphabet_default, alphabet))
+                        print("--------------------------------------------------------")
+                        return
                 elif len(eng_alphabet_default) > len(user_input):
                     print("Alphabet is not full.")
                     continue
                 elif len(eng_alphabet_default) == len(user_input):
-                    pass
+                    if typ == "cipher":
+                        print("""Enter message to cipher without any dots and
+etc. Also write it uppercase. Program is case sensitive yet.""")
+                        message = input("Message: ")
+                        print("--------------------------------------------------------")
+                        print(replacement_cd(message, user_input, eng_alphabet_default))
+                        print("--------------------------------------------------------")
+                        return
+                    else:
+                        print("""Enter message to decipher without any dots and
+etc. Also write it uppercase. Program is case sensitive yet.""")
+                        message = input("Message: ")
+                        print("--------------------------------------------------------")
+                        print(replacement_cd(message, eng_alphabet_default, user_input))
+                        print("--------------------------------------------------------")
+                        return
 
         elif choice == 2:
-            pass
+            ru_alphabet_default = ALPHABET("ru")
+            print("""Enter your alphabet in one string. Make sure to list all\
+characters and do not repeat characters. If you want to create randomly\
+generated alphabet, type random""")
+
+            while True:
+                user_input = input("Enter your alphabet: ")
+
+                if user_input == "random":
+                    alphabet = list(ru_alphabet_default)
+                    random.shuffle(alphabet)
+                    print("----------------------------------------------------")
+                    print("".join(alphabet))
+                    print("----------------------------------------------------")
+
+                    if typ == "cipher":
+                        print("""Enter message to cipher without any dots and
+etc. Also write it uppercase. Program is case sensitive yet.""")
+                        message = input("Message: ")
+                        print("--------------------------------------------------------")
+                        print(replacement_cd(message, alphabet, ru_alphabet_default))
+                        print("--------------------------------------------------------")
+                        return
+                    else:
+                        print("""Enter message to decipher without any dots and
+etc. Also write it uppercase. Program is case sensitive yet.""")
+                        message = input("Message: ")
+                        print("--------------------------------------------------------")
+                        print(replacement_cd(message, ru_alphabet_default, alphabet))
+                        print("--------------------------------------------------------")
+                        return
+                elif len(ru_alphabet_default) > len(user_input):
+                    print("Alphabet is not full.")
+                    continue
+                elif len(ru_alphabet_default) == len(user_input):
+                    if typ == "cipher":
+                        print("""Enter message to cipher without any dots and
+etc. Also write it uppercase. Program is case sensitive yet.""")
+                        message = input("Message: ")
+                        print("--------------------------------------------------------")
+                        print(replacement_cd(message, user_input, ru_alphabet_default))
+                        print("--------------------------------------------------------")
+                        return
+                    else:
+                        print("""Enter message to decipher without any dots and
+etc. Also write it uppercase. Program is case sensitive yet.""")
+                        message = input("Message: ")
+                        print("--------------------------------------------------------")
+                        print(replacement_cd(message, ru_alphabet_default, user_input))
+                        print("--------------------------------------------------------")
+                        return
         else:
             print("No such option!")
             continue
